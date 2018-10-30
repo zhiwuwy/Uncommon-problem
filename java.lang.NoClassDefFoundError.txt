@@ -1,0 +1,11 @@
+NoClassDefFoundError不同于ClassNotfoundException,前者是运行时没有找到合适的类,后者是JVM加载时没有找到合适的类,虽然他们都与java classpath有关,但是要解决前者要难得多,我用了最笨的方法,把JDK的环境变量全删掉然后重新设置,虽然解决了还是有点懵,看博客知道,出现NoClassDefFoundError可能有以下几种情况:
+1.对应的Class在java的classpath中不可用
+2.你可能用jar命令运行你的程序，但类并没有在jar文件的manifest文件中的classpath属性中定义
+3.可能程序的启动脚本覆盖了原来的classpath环境变量
+4.因为NoClassDefFoundError是java.lang.LinkageError的一个子类，所以可能由于程序依赖的原生的类库不可用而导致
+5.检查日志文件中是否有java.lang.ExceptionInInitializerError这样的错误，NoClassDefFoundError有可能是由于静态初始化失败导致的
+6.如果你工作在J2EE的环境，有多个不同的类加载器，也可能导致NoClassDefFoundError
+
+最后找到了我的问题是6,用资源文件创建DataSource的时候出错:
+p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties"));
+dataSource = DruidDataSourceFactory.createDataSource(p);

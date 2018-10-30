@@ -1,0 +1,1 @@
+拒绝访问:在elipse使用Tomcat时,如果出现这个错误,大多是因为设置了Launch Tomcat using Security Manager,解决办法:Window -> Preferences -> Tomcat -> Advanced,去掉勾选即可
