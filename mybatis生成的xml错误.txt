@@ -1,0 +1,1 @@
+mybatis生成的*mapper.xml文件的foreach中的#改为$可解决__frch_criterion_1问题
